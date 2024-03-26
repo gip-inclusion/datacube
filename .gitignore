@@ -1,0 +1,19 @@
+# Python
+*.py[cod]
+__pycache__/
+*.egg-info
+
+# VSCode
+.vscode/
+!.vscode/settings.json
+
+# Virtualenv
+.venv/
+venv/
+
+# Misc
+*.env
+!.template.env
+.tmp/
+.pytest_cache
+*.DS_Store

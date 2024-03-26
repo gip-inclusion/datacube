@@ -1,0 +1,246 @@
+x-common:
+  &env-common
+  OPENMETADATA_CLUSTER_NAME: ${OPENMETADATA_CLUSTER_NAME:-openmetadata}
+  SERVER_PORT: ${SERVER_PORT:-8585}
+  SERVER_ADMIN_PORT: ${SERVER_ADMIN_PORT:-8586}
+  LOG_LEVEL: ${LOG_LEVEL:-INFO}
+
+  # OpenMetadata Server Authentication Configuration
+  AUTHENTICATION_AUTHORITY: ${AUTHENTICATION_AUTHORITY:-https://accounts.google.com}
+  AUTHENTICATION_CALLBACK_URL: ${AUTHENTICATION_CALLBACK_URL:-""}
+  AUTHENTICATION_CLIENT_ID: ${AUTHENTICATION_CLIENT_ID:-""}
+  AUTHENTICATION_ENABLE_SELF_SIGNUP: ${AUTHENTICATION_ENABLE_SELF_SIGNUP:-true}
+  AUTHENTICATION_JWT_PRINCIPAL_CLAIMS: ${AUTHENTICATION_JWT_PRINCIPAL_CLAIMS:-[email,preferred_username,sub]}
+  AUTHENTICATION_PROVIDER: ${AUTHENTICATION_PROVIDER:-basic}
+  AUTHENTICATION_PUBLIC_KEYS: ${AUTHENTICATION_PUBLIC_KEYS:-[http://localhost:8585/api/v1/system/config/jwks]}
+  AUTHENTICATION_RESPONSE_TYPE: ${AUTHENTICATION_RESPONSE_TYPE:-id_token}
+  AUTHORIZER_ADMIN_PRINCIPALS: ${AUTHORIZER_ADMIN_PRINCIPALS:-[admin]}
+  AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN: ${AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN:-["all"]}
+  AUTHORIZER_CLASS_NAME: ${AUTHORIZER_CLASS_NAME:-org.openmetadata.service.security.DefaultAuthorizer}
+  AUTHORIZER_ENABLE_SECURE_SOCKET: ${AUTHORIZER_ENABLE_SECURE_SOCKET:-false}
+  AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN: ${AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN:-false}
+  AUTHORIZER_INGESTION_PRINCIPALS: ${AUTHORIZER_INGESTION_PRINCIPALS:-[ingestion-bot]}
+  AUTHORIZER_PRINCIPAL_DOMAIN: ${AUTHORIZER_PRINCIPAL_DOMAIN:-"openmetadata.org"}
+  AUTHORIZER_REQUEST_FILTER: ${AUTHORIZER_REQUEST_FILTER:-org.openmetadata.service.security.JwtFilter}
+  CUSTOM_OIDC_AUTHENTICATION_PROVIDER_NAME: ${CUSTOM_OIDC_AUTHENTICATION_PROVIDER_NAME:-""}
+
+  # JWT Configuration
+  JWT_ISSUER: ${JWT_ISSUER:-"open-metadata.org"}
+  JWT_KEY_ID: ${JWT_KEY_ID:-"Gb389a-9f76-gdjs-a92j-0242bk94356"}
+  RSA_PRIVATE_KEY_FILE_PATH: ${RSA_PRIVATE_KEY_FILE_PATH:-"./conf/private_key.der"}
+  RSA_PUBLIC_KEY_FILE_PATH: ${RSA_PUBLIC_KEY_FILE_PATH:-"./conf/public_key.der"}
+  # OpenMetadata Server Pipeline Service Client Configuration
+  PIPELINE_SERVICE_CLIENT_ENDPOINT: ${PIPELINE_SERVICE_CLIENT_ENDPOINT:-http://ingestion:8080}
+  PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL: ${PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL:-300}
+  PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH: ${PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH:-""}
+  PIPELINE_SERVICE_CLIENT_VERIFY_SSL: ${PIPELINE_SERVICE_CLIENT_VERIFY_SSL:-"no-ssl"}
+  SERVER_HOST_API_URL: ${SERVER_HOST_API_URL:-http://openmetadata-server:8585/api}
+  # Database configuration for postgresql
+  # FIXME(vperron) : Here below are the DB_XXX variables we need to set.
+  DB_DRIVER_CLASS: ${DB_DRIVER_CLASS:-org.postgresql.Driver}
+  DB_HOST: ${DB_HOST:-postgresql}
+  DB_PARAMS: ${DB_PARAMS:-allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC}
+  DB_PORT: ${DB_PORT:-5432}
+  DB_SCHEME: ${DB_SCHEME:-postgresql}
+  DB_USER: ${DB_USER:-openmetadata_user}
+  DB_USER_PASSWORD: ${DB_USER_PASSWORD:-openmetadata_password}
+  OM_DATABASE: ${OM_DATABASE:-openmetadata_db}
+  # ElasticSearch Configurations
+  ELASTICSEARCH_BATCH_SIZE: ${ELASTICSEARCH_BATCH_SIZE:-10}
+  ELASTICSEARCH_CONNECTION_TIMEOUT_SECS: ${ELASTICSEARCH_CONNECTION_TIMEOUT_SECS:-5}
+  ELASTICSEARCH_HOST: ${ELASTICSEARCH_HOST:- elasticsearch}
+  ELASTICSEARCH_INDEX_MAPPING_LANG: ${ELASTICSEARCH_INDEX_MAPPING_LANG:-EN}
+  ELASTICSEARCH_KEEP_ALIVE_TIMEOUT_SECS: ${ELASTICSEARCH_KEEP_ALIVE_TIMEOUT_SECS:-600}
+  ELASTICSEARCH_PASSWORD: ${ELASTICSEARCH_PASSWORD:-""}
+  ELASTICSEARCH_PORT: ${ELASTICSEARCH_PORT:-9200}
+  ELASTICSEARCH_SCHEME: ${ELASTICSEARCH_SCHEME:-http}
+  ELASTICSEARCH_SOCKET_TIMEOUT_SECS: ${ELASTICSEARCH_SOCKET_TIMEOUT_SECS:-60}
+  ELASTICSEARCH_TRUST_STORE_PASSWORD: ${ELASTICSEARCH_TRUST_STORE_PASSWORD:-""}
+  ELASTICSEARCH_TRUST_STORE_PATH: ${ELASTICSEARCH_TRUST_STORE_PATH:-""}
+  ELASTICSEARCH_USER: ${ELASTICSEARCH_USER:-""}
+  SEARCH_TYPE: ${SEARCH_TYPE:- "elasticsearch"}
+
+  # EventMonitoring Configuration
+  EVENT_MONITOR: ${EVENT_MONITOR:-prometheus}
+  EVENT_MONITOR_BATCH_SIZE: ${EVENT_MONITOR_BATCH_SIZE:-10}
+  EVENT_MONITOR_LATENCY: ${EVENT_MONITOR_LATENCY:-[]}
+  EVENT_MONITOR_PATH_PATTERN: ${EVENT_MONITOR_PATH_PATTERN:-["/api/v1/tables/*", "/api/v1/health-check"]}
+
+  # PipelineServiceClient Configuration
+  PIPELINE_SERVICE_CLIENT_CLASS_NAME: ${PIPELINE_SERVICE_CLIENT_CLASS_NAME:-"org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"}
+  PIPELINE_SERVICE_CLIENT_ENABLED: ${PIPELINE_SERVICE_CLIENT_ENABLED:-true}
+  PIPELINE_SERVICE_CLIENT_HOST_IP: ${PIPELINE_SERVICE_CLIENT_HOST_IP:-""}
+  PIPELINE_SERVICE_CLIENT_SECRETS_MANAGER_LOADER: ${PIPELINE_SERVICE_CLIENT_SECRETS_MANAGER_LOADER:-"noop"}
+  PIPELINE_SERVICE_IP_INFO_ENABLED: ${PIPELINE_SERVICE_IP_INFO_ENABLED:-false}
+
+  # Airflow parameters
+  # FIXME(vperron) : Change these
+  AIRFLOW_PASSWORD: ${AIRFLOW_PASSWORD:-admin}
+  AIRFLOW_TIMEOUT: ${AIRFLOW_TIMEOUT:-10}
+  AIRFLOW_TRUST_STORE_PASSWORD: ${AIRFLOW_TRUST_STORE_PASSWORD:-""}
+  AIRFLOW_TRUST_STORE_PATH: ${AIRFLOW_TRUST_STORE_PATH:-""}
+  AIRFLOW_USERNAME: ${AIRFLOW_USERNAME:-admin}
+  FERNET_KEY: ${FERNET_KEY:-jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA=}
+
+  # SecretsManager Configuration
+  SECRET_MANAGER: ${SECRET_MANAGER:-db}
+  # AWS:
+  OM_SM_ACCESS_KEY: ${OM_SM_ACCESS_KEY:-""}
+  OM_SM_ACCESS_KEY_ID: ${OM_SM_ACCESS_KEY_ID:-""}
+  OM_SM_REGION: ${OM_SM_REGION:-""}
+
+  # Email configuration:
+  AUTHORIZER_ENABLE_SMTP : ${AUTHORIZER_ENABLE_SMTP:-false}
+  OM_EMAIL_ENTITY: ${OM_EMAIL_ENTITY:-"OpenMetadata"}
+  OM_SUPPORT_URL: ${OM_SUPPORT_URL:-"https://slack.open-metadata.org"}
+  OPENMETADATA_SERVER_URL: ${OPENMETADATA_SERVER_URL:-""}
+  OPENMETADATA_SMTP_SENDER_MAIL: ${OPENMETADATA_SMTP_SENDER_MAIL:-""}
+  SMTP_SERVER_ENDPOINT: ${SMTP_SERVER_ENDPOINT:-""}
+  SMTP_SERVER_PORT: ${SMTP_SERVER_PORT:-""}
+  SMTP_SERVER_PWD: ${SMTP_SERVER_PWD:-""}
+  SMTP_SERVER_STRATEGY: ${SMTP_SERVER_STRATEGY:-"SMTP_TLS"}
+  SMTP_SERVER_USERNAME: ${SMTP_SERVER_USERNAME:-""}
+
+  # Heap OPTS Configurations
+  OPENMETADATA_HEAP_OPTS: ${OPENMETADATA_HEAP_OPTS:--Xmx1G -Xms1G}
+  # Mask passwords values in UI
+  MASK_PASSWORDS_API: ${MASK_PASSWORDS_API:-false}
+
+services:
+  elasticsearch:
+    restart: always
+    container_name: openmetadata_elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    healthcheck:
+      test: "curl -s http://localhost:9200/_cluster/health?pretty | grep status | grep -qE 'green|yellow' || exit 1"
+      interval: 15s
+      timeout: 10s
+      retries: 10
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+
+  execute-migrate-all:
+    container_name: execute_migrate_all
+    image: docker.getcollate.io/openmetadata/server:1.3.1
+    command: "./bootstrap/openmetadata-ops.sh migrate"
+    environment:
+      <<: *env-common
+      MIGRATION_LIMIT_PARAM: ${MIGRATION_LIMIT_PARAM:-1200}
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  openmetadata-server:
+    container_name: openmetadata_server
+    restart: always
+    image: docker.getcollate.io/openmetadata/server:1.3.1
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      <<: *env-common
+      # FIXME(vperron) : Review these carefully
+      WEB_CONF_CONTENT_TYPE_OPTIONS_ENABLED: ${WEB_CONF_CONTENT_TYPE_OPTIONS_ENABLED:-false}
+      WEB_CONF_FRAME_OPTION: ${WEB_CONF_FRAME_OPTION:-"SAMEORIGIN"}
+      WEB_CONF_FRAME_OPTION_ENABLED: ${WEB_CONF_FRAME_OPTION_ENABLED:-false}
+      WEB_CONF_FRAME_ORIGIN: ${WEB_CONF_FRAME_ORIGIN:-""}
+      WEB_CONF_HSTS_ENABLED: ${WEB_CONF_HSTS_ENABLED:-false}
+      WEB_CONF_HSTS_INCLUDE_SUBDOMAINS: ${WEB_CONF_HSTS_INCLUDE_SUBDOMAINS:-"true"}
+      WEB_CONF_HSTS_MAX_AGE: ${WEB_CONF_HSTS_MAX_AGE:-"365 days"}
+      WEB_CONF_HSTS_PRELOAD: ${WEB_CONF_HSTS_PRELOAD:-"true"}
+      WEB_CONF_PERMISSION_POLICY_ENABLED: ${WEB_CONF_PERMISSION_POLICY_ENABLED:-false}
+      WEB_CONF_PERMISSION_POLICY_OPTION: ${WEB_CONF_PERMISSION_POLICY_OPTION:-""}
+      WEB_CONF_REFERRER_POLICY_ENABLED: ${WEB_CONF_REFERRER_POLICY_ENABLED:-false}
+      WEB_CONF_REFERRER_POLICY_OPTION: ${WEB_CONF_REFERRER_POLICY_OPTION:-"SAME_ORIGIN"}
+      WEB_CONF_URI_PATH: ${WEB_CONF_URI_PATH:-"/api"}
+      WEB_CONF_XSS_CSP_ENABLED: ${WEB_CONF_XSS_CSP_ENABLED:-false}
+      WEB_CONF_XSS_CSP_POLICY: ${WEB_CONF_XSS_CSP_POLICY:-"default-src 'self'"}
+      WEB_CONF_XSS_CSP_REPORT_ONLY_POLICY: ${WEB_CONF_XSS_CSP_REPORT_ONLY_POLICY:-""}
+      WEB_CONF_XSS_PROTECTION_BLOCK: ${WEB_CONF_XSS_PROTECTION_BLOCK:-true}
+      WEB_CONF_XSS_PROTECTION_ENABLED: ${WEB_CONF_XSS_PROTECTION_ENABLED:-false}
+      WEB_CONF_XSS_PROTECTION_ON: ${WEB_CONF_XSS_PROTECTION_ON:-true}
+    expose:
+      - 8585
+      - 8586
+    ports:
+      - "8585:8585"
+      - "8586:8586"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      execute-migrate-all:
+        condition: service_completed_successfully
+    healthcheck:
+      test: [ "CMD", "wget", "-q", "--spider",  "http://localhost:8586/healthcheck" ]
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.openmetadata.rule=Host(`${OPENMETADATA_HOSTNAME}`)"
+      - "traefik.http.routers.openmetadata.entrypoints=websecure"
+      - "traefik.http.routers.openmetadata.tls.certresolver=main"
+
+  ingestion:
+    restart: always
+    container_name: openmetadata_ingestion
+    image: docker.getcollate.io/openmetadata/ingestion:1.3.1
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      openmetadata-server:
+        condition: service_started
+    environment:
+      AIRFLOW_DB: ${AIRFLOW_DB:-airflow_db}
+      AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__OPENMETADATA_AIRFLOW_APIS__DAG_GENERATED_CONFIGS: "/opt/airflow/dag_generated_configs"
+      DB_HOST: ${AIRFLOW_DB_HOST:-postgresql}
+      DB_PASSWORD: ${AIRFLOW_DB_PASSWORD:-airflow_pass}
+      DB_PORT: ${AIRFLOW_DB_PORT:-5432}
+      DB_PROPERTIES: ${AIRFLOW_DB_PROPERTIES:-}
+      DB_SCHEME: ${AIRFLOW_DB_SCHEME:-postgresql+psycopg2}
+      DB_USER: ${AIRFLOW_DB_USER:-airflow_user}
+    entrypoint: /bin/bash
+    command:
+      - "/opt/airflow/ingestion_dependency.sh"
+    expose:
+      - 8080
+    ports:
+      - "8080:8080"
+    volumes:
+      - ingestion-volume-dag-airflow:/opt/airflow/dag_generated_configs
+      - ingestion-volume-dags:/opt/airflow/dags
+      - ingestion-volume-tmp:/tmp
+
+  reverse-proxy:
+    image: traefik:v2.10
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+      - 8081:8080
+    environment:
+      - TRAEFIK_PROVIDERS_DOCKER=true
+      - TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT=false
+      - TRAEFIK_ENTRYPOINTS_WEB_ADDRESS=:80
+      - TRAEFIK_ENTRYPOINTS_WEB_HTTP_REDIRECTIONS_ENTRYPOINT_TO=websecure
+      - TRAEFIK_ENTRYPOINTS_WEBSECURE_ADDRESS=:443
+      - TRAEFIK_CERTIFICATESRESOLVERS_MAIN_ACME_TLSCHALLENGE=true
+      - TRAEFIK_CERTIFICATESRESOLVERS_MAIN_ACME_EMAIL=tech@data.inclusion.beta.gouv.fr
+      - TRAEFIK_CERTIFICATESRESOLVERS_MAIN_ACME_STORAGE=/letsencrypt/acme.json
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - letsencrypt-data:/letsencrypt
+
+volumes:
+  es-data:
+  letsencrypt-data:
+  ingestion-volume-dag-airflow:
+  ingestion-volume-dags:
+  ingestion-volume-tmp:
