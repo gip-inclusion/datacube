@@ -44,7 +44,13 @@ variable "scaleway_instance_type" {
 }
 
 variable "ssh_private_key" {
-  description = "The associated public key will be deployed to the instance"
+  description = "The private key used to connect to the Scaleway machine"
+  type        = string
+  sensitive   = true
+}
+
+variable "ssh_tunnel_key" {
+  description = "The private key used to open tunnels towards Scalingo"
   type        = string
   sensitive   = true
 }
@@ -84,7 +90,15 @@ variable "om_database" {
   sensitive   = true
 }
 
-variable "openmetadata_hostname" {
-  description = "The hostname for the Openmetadata server"
+variable "dora_db_host" {
+  description = "The host of the DORA database"
   type        = string
+  sensitive   = true
 }
+
+variable "dora_db_port" {
+  description = "The port of the DORA database"
+  type        = string
+  sensitive   = true
+}
+
