@@ -43,9 +43,7 @@ data "scaleway_iam_group" "deployers" {
 }
 
 locals {
-  base_hostname = "${var.dns_subdomain != "" ? "${var.dns_subdomain}." : ""}${var.dns_zone}"
-
-  openmetadata_hostname  = "openmetadata.${local.base_hostname}"
+  openmetadata_hostname = "openmetadata.${var.dns_zone}"
 
   work_dir = "/root/datacube"
 }
@@ -82,7 +80,7 @@ resource "null_resource" "up" {
   provisioner "file" {
     content = sensitive(<<-EOT
     STACK_VERSION=${var.stack_version}
-    OPENMETADATA_HOSTNAME=${var.openmetadata_hostname}
+    OPENMETADATA_HOSTNAME=${local.openmetadata_hostname}
 
     DB_PARAMS='useSSL=true&serverTimezone=UTC'
     DB_USER=${var.db_user}

@@ -1,10 +1,4 @@
 
-variable "dns_subdomain" {
-  description = "DNS subdomain where the public hostnames will be created within dns_zone (optional)"
-  type        = string
-  default     = ""
-}
-
 variable "dns_zone" {
   description = "DNS zone where the public hostnames will be created"
   type        = string
