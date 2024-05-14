@@ -9,4 +9,5 @@ def line_reader(filename):
         for line in reader:
             yield line
 
+
 writer = csv.writer(sys.stdout, quoting=csv.QUOTE_NONNUMERIC)

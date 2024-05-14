@@ -1,5 +1,5 @@
-from time import sleep
 import sys
+from time import sleep
 
 from dc_utils import api_entreprise, csv, google
 
@@ -67,19 +67,21 @@ for marché_domain, marché_nb_demandes in MARCHE_DATA.items():
                 if_name, if_nb_conventions = IF_BY_SIRET[siret]
             elif company.siren in IF_BY_SIREN:
                 if_name, if_nb_conventions = IF_BY_SIREN[company.siren]
-            csv.writer.writerow([
-                "CSV",
-                siret,
-                company.siren,
-                company.name,
-                company.city,
-                company.post_code,
-                company.effectifs,
-                if_name,
-                if_nb_conventions,
-                marché_domain,
-                marché_nb_demandes,
-            ])
+            csv.writer.writerow(
+                [
+                    "CSV",
+                    siret,
+                    company.siren,
+                    company.name,
+                    company.city,
+                    company.post_code,
+                    company.effectifs,
+                    if_name,
+                    if_nb_conventions,
+                    marché_domain,
+                    marché_nb_demandes,
+                ]
+            )
             break
         else:
             print(f"!!! no company found for siret={siret}")

@@ -1,9 +1,8 @@
-import os
 import logging
+import os
 from dataclasses import dataclass
 
 import requests
-
 
 logger = logging.getLogger(__name__)
 
