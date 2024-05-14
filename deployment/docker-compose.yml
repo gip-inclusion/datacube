@@ -128,7 +128,7 @@ services:
 
   execute-migrate-all:
     container_name: execute_migrate_all
-    image: docker.getcollate.io/openmetadata/server:1.3.1
+    image: docker.getcollate.io/openmetadata/server:1.3.3
     command: "./bootstrap/openmetadata-ops.sh migrate"
     environment:
       <<: *env-common
@@ -140,7 +140,7 @@ services:
   openmetadata-server:
     container_name: openmetadata_server
     restart: always
-    image: docker.getcollate.io/openmetadata/server:1.3.1
+    image: docker.getcollate.io/openmetadata/server:1.3.3
     extra_hosts:
       - "host.docker.internal:host-gateway"
     environment:
@@ -187,7 +187,7 @@ services:
   ingestion:
     restart: always
     container_name: openmetadata_ingestion
-    image: docker.getcollate.io/openmetadata/ingestion:1.3.1
+    image: docker.getcollate.io/openmetadata/ingestion:1.3.3
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
