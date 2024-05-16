@@ -1,0 +1,19 @@
+[project]
+requires-python = ">=3.12"
+
+[tool.ruff]
+line-length = 119
+
+[tool.ruff.lint]
+# see prefixes in https://beta.ruff.rs/docs/rules/
+select = [
+    "F",  # pyflakes
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "I",  # isort
+]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+known-first-party = ["spock"]
+lines-after-imports = 2

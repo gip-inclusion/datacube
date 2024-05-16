@@ -1,0 +1,2 @@
+web: python3 manage.py collectstatic --noinput; gunicorn config.wsgi --log-file -
+postdeploy: ./resetdb.sh
