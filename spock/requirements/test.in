@@ -1,0 +1,19 @@
+-r base.txt
+
+pip-tools  # https://github.com/jazzband/pip-tools/
+
+# Code quality
+# ------------------------------------------------------------------------------
+ruff  # https://github.com/charliermarsh/ruff
+
+# Test & Mock
+# ------------------------------------------------------------------------------
+factory-boy  # https://github.com/FactoryBoy/factory_boy
+freezegun  # https://github.com/spulec/freezegun
+pytest  # https://github.com/pytest-dev/pytest
+pytest-django # https://github.com/pytest-dev/pytest-django/
+pytest-mock  # https://github.com/pytest-dev/pytest-mock/
+pytest-randomly  # https://github.com/pytest-dev/pytest-randomly
+pytest-xdist  # https://pypi.org/project/pytest-xdist/
+respx  # https://lundberg.github.io/respx/
+syrupy  # https://github.com/tophat/syrupy
