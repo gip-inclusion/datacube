@@ -9,10 +9,14 @@ tenacity  # https://github.com/jd/tenacity
 # ------------------------------------------------------------------------------
 
 django==5.0.*  # https://www.djangoproject.com/
+dj-static
 
 # Requests alternative including a default time out
 httpx  # https://github.com/encode/httpx/
 
+gunicorn
+furl  # https://github.com/gruns/furl
+google-search-results  # https://serpapi.com/integrations/python
 
 # To automatically load .env files at the root of the project
 python-dotenv  # https://github.com/theskumar/python-dotenv

@@ -27,6 +27,12 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "admin.datacube.gip-inclusion.org").s
 
 SITE_ID = 1
 
+
+if "GDAL_LIBRARY_PATH" in os.environ:
+    GDAL_LIBRARY_PATH = os.environ["GDAL_LIBRARY_PATH"]
+if "GEOS_LIBRARY_PATH" in os.environ:
+    GEOS_LIBRARY_PATH = os.environ["GEOS_LIBRARY_PATH"]
+
 INSTALLED_APPS = [
     # Django apps.
     "django.forms",
@@ -39,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.gis",
     "django.contrib.postgres",
+    "spock.company_score",
     "spock.users",
 ]
 
@@ -125,22 +132,18 @@ USE_TZ = True
 
 DATE_INPUT_FORMATS = ["%d/%m/%Y", "%d-%m-%Y", "%d %m %Y"]
 
-STATIC_ROOT = os.path.join(APPS_DIR, "static_collected")
 
+STATIC_ROOT = "staticfiles"
 STATIC_URL = "/static/"
+
+STATICFILES_DIRS = (os.path.join(ROOT_DIR, "static"),)
 
 STORAGES = {
     "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
 
-STATICFILES_FINDERS = (
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-)
-
-STATICFILES_DIRS = (os.path.join(APPS_DIR, "static"),)
 
 CSRF_USE_SESSIONS = True
 
@@ -194,3 +197,10 @@ LOGGING = {
 AUTH_USER_MODEL = "users.User"
 
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
+
+
+LE_MARCHE_API_BASE_URL = os.getenv("LE_MARCHE_API_BASE_URL")
+LE_MARCHE_API_TOKEN = os.getenv("LE_MARCHE_API_TOKEN")
+
+SERPAPI_API_KEY = os.getenv("SERPAPI_API_KEY")
+API_ENTREPRISE_BASE_URL = os.getenv("API_ENTREPRISE_BASE_URL")
