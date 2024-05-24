@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.gis",
     "django.contrib.postgres",
+    "spock.company_score",
     "spock.users",
 ]
 
@@ -198,3 +199,10 @@ LOGGING = {
 AUTH_USER_MODEL = "users.User"
 
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
+
+
+LE_MARCHE_API_BASE_URL = os.getenv("LE_MARCHE_API_BASE_URL")
+LE_MARCHE_API_TOKEN = os.getenv("LE_MARCHE_API_TOKEN")
+
+SERPAPI_API_KEY = os.getenv("SERPAPI_API_KEY")
+API_ENTREPRISE_BASE_URL = os.getenv("API_ENTREPRISE_BASE_URL")

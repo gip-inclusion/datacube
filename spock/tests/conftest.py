@@ -1,3 +1,4 @@
+import freezegun
 import pytest
 from django.contrib.gis.db.models.fields import get_srid_info
 from django.db import connection
@@ -39,3 +40,9 @@ def preload_spatial_reference(django_db_setup, django_db_blocker):
     """
     with django_db_blocker.unblock():
         get_srid_info(4326, connection)
+
+
+@pytest.fixture()
+def frozen_time():
+    with freezegun.freeze_time("2024-05-20 16:11:34") as ft:
+        yield ft
