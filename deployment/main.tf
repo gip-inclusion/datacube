@@ -6,6 +6,7 @@ resource "scaleway_instance_security_group" "main" {
   inbound_default_policy  = "drop"
   outbound_default_policy = "accept"
   stateful                = true
+  enable_default_security = false
 
   inbound_rule {
     action = "accept"
