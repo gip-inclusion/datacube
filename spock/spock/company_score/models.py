@@ -87,7 +87,7 @@ TRANCHES_EFFECTIF = {
     "53": "10 000 et plus",
 }
 
-CONVENTION_WEIGHTS = [5, 10, 7] + [3] * 7 + [1] * 100
+CONVENTION_WEIGHTS = [5, 10, 7] + [3] * 7 + [1] * 1000
 
 
 class ScoredCompany(models.Model):
@@ -138,7 +138,10 @@ class ScoredCompany(models.Model):
         return amount
 
     def get_conventions_count(self):
-        return self.if_conventions.nb_conventions
+        # FIXME(vperron): We should switch to an OneToOneField here, but
+        # orginially and maybe soon we should get multiple conventions
+        # for a single company throught the API.
+        return sum(c.nb_conventions for c in self.if_conventions.all())
 
     def get_score(self) -> float:
         def convention_bell(x):
@@ -153,7 +156,7 @@ class ScoredCompany(models.Model):
         if company_kind not in COMPANY_CATEGORY_TO_WEIGHT:
             return -1  # can't be computed
         return round(
-            (convention_bell(self.get_conventions_count()) + math.log(1 + self.get_tender_amount()))
+            (convention_bell(self.get_conventions_count()) + 10 * math.log(1 + self.get_tender_amount()))
             / COMPANY_CATEGORY_TO_WEIGHT[company_kind],
             2,
         )
