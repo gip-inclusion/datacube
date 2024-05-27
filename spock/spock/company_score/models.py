@@ -3,38 +3,6 @@ import math
 from django.db import models
 
 
-# SYNC-RAW-MARCHE & SYNC-RAW-IF
-# Un cron qui les synchronise les données directement et simplement (ID ou slug, JSON)
-# Pour IF, on peut immédiatement enregistrer la Company sur le RawConvention.
-# Dans les deux cas, si le SIRET (IF) change ou le domaine (Marche) change, il faut
-# reset la `FK` Company sur le RawTender ou le RawConvention.
-# On discarde directement:
-# - pour le marché, certains domaines email ? certains types de demandes ?
-# - pour IF, certains types de convention ou certains statuts ?
-# ==> Demande à vérifier auprès de Sonia, Nathalie, Abdess, Pierre.
-
-# MARCHE-LINK-TO-COMPANY (avec google)
-# Un cron passe sur les données brutes du Marché et regarde les domaines.
-# Pour chaque domaine, on cherche un GoogleResolvedDomain
-# - si déjà résolu:
-#   - si on a une Company locale avec ce SIREN et on la note le RawTender.
-#   -
-# - si pas résolu: on fait une résolution Google du SIREN
-#   * si on trouve un SIREN, on crée un GoogleResolvedDomain et on note la Company sur le RawTender
-#   * si on ne trouve aucun SIREN, on laisse Company=None sur le RawTender. Un retry aura lieu.
-# ... dans tous les cas on MAJ last_google_resolution_at.
-
-# MARCHE-IF-SIREN-TO-COMPANY
-# Pour chaque SIREN du Marché ou d'IF pour lequel on a pas de Company,
-# on va chercher les infos sur l'API Entreprise.
-# On stocke tout sous forme JSON à part le nom pour l'instant, le schéma de l'API Entreprise est
-# stable.
-# On MAJ last_api_entreprise_at (on pourra re-résoudre à intervalles réguliers)
-# Ensuite, on peut lancer un calcul de score et le stocker sur la Company.
-# (facile, on a accès direct aux tenders, conventions, données CA & effectifs)
-# Il faudrait un moyen simple de montrer les infos manquantes ?
-
-
 class LeMarcheRawTender(models.Model):
     slug = models.SlugField(
         unique=True,
@@ -170,7 +138,7 @@ class ScoredCompany(models.Model):
         return amount
 
     def get_conventions_count(self):
-        return self.if_conventions.count()
+        return self.if_conventions.nb_conventions
 
     def get_score(self) -> float:
         def convention_bell(x):
