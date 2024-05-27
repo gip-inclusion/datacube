@@ -96,3 +96,15 @@ variable "dora_db_port" {
   sensitive   = true
 }
 
+variable "if_db_host" {
+  description = "The host of the IF database"
+  type        = string
+  sensitive   = true
+}
+
+variable "if_db_port" {
+  description = "The port of the IF database"
+  type        = string
+  sensitive   = true
+}
+

@@ -157,3 +157,30 @@ resource "system_service_systemd" "dora_db_tunnel" {
   enabled = true
   status  = "started"
 }
+
+resource "system_file" "if_db_tunnel" {
+  path    = "/etc/systemd/system/if-db-tunnel.service"
+  mode    = 644
+  user    = "root"
+  group   = "root"
+  content = <<EOT
+[Unit]
+Description=IF DB tunnel
+After=network.target
+
+[Service]
+Restart=always
+RestartSec=60
+ExecStartPre=+/bin/chmod 600 /tmp/tunnel.key
+ExecStart=/bin/ssh -N -L 172.17.0.1:10001:${var.if_db_host}:${var.if_db_port} -i /tmp/tunnel.key git@ssh.osc-secnum-fr1.scalingo.com
+
+[Install]
+WantedBy=multi-user.target
+EOT
+}
+
+resource "system_service_systemd" "if_db_tunnel" {
+  name    = trimsuffix(system_file.if_db_tunnel.basename, ".service")
+  enabled = true
+  status  = "started"
+}
