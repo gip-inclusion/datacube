@@ -186,3 +186,30 @@ resource "system_service_systemd" "if_db_tunnel" {
   enabled = true
   status  = "started"
 }
+
+resource "system_file" "rdvi_db_tunnel" {
+  path    = "/etc/systemd/system/rdvi-db-tunnel.service"
+  mode    = 644
+  user    = "root"
+  group   = "root"
+  content = <<EOT
+[Unit]
+Description=RDVI DB tunnel
+After=network.target
+
+[Service]
+Restart=always
+RestartSec=60
+ExecStartPre=+/bin/chmod 600 /tmp/tunnel.key
+ExecStart=/bin/ssh -N -L 172.17.0.1:10002:${var.rdvi_db_host}:${var.rdvi_db_port} -i /tmp/tunnel.key git@ssh.osc-secnum-fr1.scalingo.com
+
+[Install]
+WantedBy=multi-user.target
+EOT
+}
+
+resource "system_service_systemd" "rdvi_db_tunnel" {
+  name    = trimsuffix(system_file.rdvi_db_tunnel.basename, ".service")
+  enabled = true
+  status  = "started"
+}

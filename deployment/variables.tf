@@ -108,3 +108,14 @@ variable "if_db_port" {
   sensitive   = true
 }
 
+variable "rdvi_db_host" {
+  description = "The host of the RDVI database"
+  type        = string
+  sensitive   = true
+}
+
+variable "rdvi_db_port" {
+  description = "The port of the RDVI database"
+  type        = string
+  sensitive   = true
+}
