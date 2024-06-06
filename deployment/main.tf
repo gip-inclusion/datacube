@@ -97,6 +97,8 @@ resource "null_resource" "up" {
     AIRFLOW_DB_HOST=${var.db_host}
     AIRFLOW_DB_PORT=${var.db_port}
 
+    AUTHENTICATION_ENABLE_SELF_SIGNUP=false
+
     EOT
     )
     destination = "${local.work_dir}/.env"
