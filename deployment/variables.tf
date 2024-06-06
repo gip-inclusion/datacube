@@ -119,3 +119,15 @@ variable "rdvi_db_port" {
   type        = string
   sensitive   = true
 }
+
+variable "di_db_host" {
+  description = "The host of the di database"
+  type        = string
+  sensitive   = true
+}
+
+variable "di_db_port" {
+  description = "The port of the di database"
+  type        = string
+  sensitive   = true
+}
