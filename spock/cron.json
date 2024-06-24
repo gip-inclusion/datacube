@@ -1,0 +1,16 @@
+{
+    "jobs": [
+        {
+            "command": "0 2 * * * django-admin.py sync_le_marche_tenders",
+            "size": "S"
+        },
+        {
+            "command": "0 3 * * * django-admin.py resolve_domain_sirens --wet-run",
+            "size": "S"
+        },
+        {
+            "command": "0 4 * * * django-admin.py resolve_siren_companies --wet-run",
+            "size": "S"
+        }
+    ]
+}
