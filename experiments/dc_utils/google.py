@@ -74,7 +74,7 @@ def search_siret(email):
     for rank in range(0, MAX_GOOGLE_RESULTS_TO_CHECK):
         try:
             snippet = results["organic_results"][rank]["snippet"]
-        except KeyError:
+        except (IndexError, KeyError):
             _print(f"! no snippet result for email={email}")
             continue
 
