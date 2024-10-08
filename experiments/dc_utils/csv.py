@@ -11,3 +11,5 @@ def line_reader(filename):
 
 
 writer = csv.writer(sys.stdout, quoting=csv.QUOTE_NONNUMERIC)
+
+dict_writer = csv.DictWriter(sys.stdout, quoting=csv.QUOTE_NONNUMERIC, fieldnames=None)
